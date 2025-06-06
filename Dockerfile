@@ -1,6 +1,6 @@
 FROM node:18-slim
 
-# Instalamos las dependencias de Chromium necesarias
+# Dependencias necesarias para puppeteer / chromium
 RUN apt-get update && apt-get install -y \
     wget \
     ca-certificates \
@@ -24,4 +24,12 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /usr/src/app
 
-COPY package*.json*
+# ⚠️ Esta línea corregida
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "index.js"]
