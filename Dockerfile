@@ -1,6 +1,6 @@
 FROM node:18-slim
 
-# Dependencias necesarias para puppeteer / chromium
+# Instala dependencias necesarias para Chromium (puppeteer)
 RUN apt-get update && apt-get install -y \
     wget \
     ca-certificates \
@@ -18,13 +18,16 @@ RUN apt-get update && apt-get install -y \
     libxcomposite1 \
     libxdamage1 \
     libxrandr2 \
+    libdrm2 \
+    libgbm1 \
+    libxshmfence1 \
+    libgl1 \
     xdg-utils \
     --no-install-recommends && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
 
-# ⚠️ Esta línea corregida
 COPY package*.json ./
 RUN npm install
 
